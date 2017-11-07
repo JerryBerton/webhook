@@ -72,8 +72,9 @@ io.sockets.on('connection', function (socket) {
 // git handle push 
 handler.on('push', function (event) {
   // io.sockets.emit('push:All', event.payload)
-  var repository = event.payload
-  io.sockets.emit('push' + repository.name, event.payload)
+  var repository = event.payload.repository
+  io.sockets.emit('push:all', event.payload)
+  io.sockets.emit('push:' + repository.name, event.payload)
   console.log('Received a push event for %s to %s',
     event.payload.repository.name,
     event.payload.ref)

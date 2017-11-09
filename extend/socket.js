@@ -21,10 +21,15 @@ module.exports.hook = function (io, handler) {
      * 存档数据库操作
      */
     let data = tool.gitResp(payload)
-    model.commit.create(data)
-    .then(function(ls) {
-      console.log('jwb', ls)
+    model.user.findOne({
+      where: { name: data.committer.name },
+    }).then(function(result) {
+      console.log('result', result)
     })
+    // model.commit.create(data)
+    // .then(function(ls) {
+      
+    // })
 
     console.log('Data: %s -- a push event for %s to %s', 
       head_commit.timestamp, 

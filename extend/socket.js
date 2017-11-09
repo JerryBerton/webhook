@@ -23,13 +23,16 @@ module.exports.hook = function (io, handler) {
     let data = tool.gitResp(payload)
     model.user.findOne({
       where: { name: data.committer.name },
-    }).then(function(result) {
-      console.log('result', result)
     })
-    // model.commit.create(data)
-    // .then(function(ls) {
-      
-    // })
+    .then(function(result) {
+      let commiterId = result.id
+      data.commiterId = commiterId
+       model.commit.create(data)
+      .then(function(ls) {
+        console.log('ok')
+      })
+    })
+
 
     console.log('Data: %s -- a push event for %s to %s', 
       head_commit.timestamp, 
